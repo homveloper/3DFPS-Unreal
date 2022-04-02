@@ -1,0 +1,117 @@
+﻿@startuml
+'https://plantuml.com/class-diagram
+
+'abstract class AbstractList
+'abstract AbstractCollection
+'interface List
+'interface Collection
+
+'List <|-- AbstractList
+'Collection <|-- AbstractCollection
+'
+'Collection <|- List
+'AbstractCollection <|- AbstractList
+'AbstractList <|-- ArrayList
+'
+'class ArrayList {
+'Object[] elementData
+'size()
+'}
+'
+'enum TimeUnit {
+'DAYS
+'HOURS
+'MINUTES
+'}
+
+class AActor
+
+AActor <|-- AItem
+class AItem {
+    ' for item name'
+    - FString ItemName              
+    - int32 ItemCount
+    - UBoxComponent* CollisionBox
+    - USkeletalMeshComponent* ItemMesh
+    - USphereComponent* AreaSphere
+    - UWidgetComponent* PickupWidget
+    
+    + AItem
+    + UWidgetComponent GetPickupWidget()
+}
+
+AItem <|-- WeaponItem
+class WeaponItem {
+    
+}
+
+WeaponItem <|-- MeleeWeaponItem
+class MeleeWeaponItem {
+    
+}
+
+WeaponItem <|-- HitScanWeaponItem
+class HitScanWeaponItem {
+    
+}
+
+class ACharacter
+
+ACharacter <|-- BaseCharacter
+class BaseCharacter {
+    --Public Override Method--
+    + virtual void Tick(float DeltaTim) override
+    + virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override 
+    
+    --Protected Override Method--
+    # virtual void BeginPlay() override
+   
+    --Public Method--
+    + BaseCharacter()
+   
+    --Protected Method--
+    # void PrimaryButtonPressed()
+    # void PrimaryButtonReleased()
+    
+    # void SecondaryButtonPressed()
+    # void SecondaryButtonReleased()
+
+    --Private Method--
+    - void MoveVertical()
+    - void MoveHorizontal()
+    - void TurnVertical()
+    - void TurnHorizontal()
+    
+    'TODO : 총기 ADS 구현시 1인칭 시점 카메라로 전환'
+    - void CameraInterpZoom();
+    
+    - void FireWeapon()
+    - void EquipWeapon()
+    - void DropWeapon()
+
+    --Private Field--
+    
+    ..Camera Properties..
+    - USpringArmComponent* SpringArm
+    - UCameraComponent* FollowCamera
+    - FVector SocketOffset
+    - float TargetArmLength
+    
+    - float HipHorizontalRate
+    - float HipVerticalRate
+    - float AimingHorizontalRate
+    - float AimingVerticalRate
+    
+    ..Combat Properties..
+    - bool bPrimaryButtonPressed
+    - bool bSecondaryButtonPressed
+    
+    - AWeaponItem* EquippedWeapon
+    - TSubclassOf<AWeaponItem> DefaultWeaponClass
+}
+
+
+
+
+
+@enduml
